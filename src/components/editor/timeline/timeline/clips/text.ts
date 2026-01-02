@@ -14,13 +14,13 @@ export class TextClip extends BaseTimelineClip {
     return { controls: createResizeControls() };
   }
   static ownDefaults = {
-    rx: 4,
-    ry: 4,
+    rx:  10,
+    ry: 10,
     objectCaching: false,
     borderColor: 'transparent',
     stroke: 'transparent',
     strokeWidth: 0,
-    fill: '#27272a',
+    fill: '#166534',
     borderOpacityWhenMoving: 1,
     hoverCursor: 'default',
   };
@@ -30,7 +30,7 @@ export class TextClip extends BaseTimelineClip {
     Object.assign(this, TextClip.ownDefaults);
     this.text = 'Text clip';
     this.set({
-      fill: TRACK_COLORS.text.solid,
+      // fill: TRACK_COLORS.text.solid,
     });
   }
 
@@ -66,10 +66,10 @@ export class TextClip extends BaseTimelineClip {
 
   public updateSelected(ctx: CanvasRenderingContext2D) {
     const borderColor = this.isSelected
-      ? 'rgba(255, 255, 255,1.0)'
-      : 'rgba(255, 255, 255,0.05)';
+      ? '#22c55e'
+      : '#15803d';
     const borderWidth = 2;
-    const radius = 4;
+    const radius = 10;
 
     ctx.save();
     ctx.fillStyle = borderColor;

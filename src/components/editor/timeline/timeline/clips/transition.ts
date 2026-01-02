@@ -1,12 +1,11 @@
 import { BaseTimelineClip, BaseClipProps } from './base';
 import { TRACK_COLORS } from '../utils';
 import { Control } from 'fabric';
-import { createResizeControls } from '../controls';
 
 export class TransitionClip extends BaseTimelineClip {
   isSelected: boolean;
   static createControls(): { controls: Record<string, Control> } {
-    return { controls: createResizeControls() };
+    return { controls: {} };
   }
 
   static ownDefaults = {

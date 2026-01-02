@@ -13,6 +13,10 @@ import { Assistant } from '@/components/assistant';
 import Header from '@/components/editor/header';
 import { Loading } from '@/components/editor/loading';
 import { ChatPanel } from '@/components/editor/media-panel/chat-panel';
+import { VisualsChatPanel } from '@/components/editor/media-panel/visuals-chat-panel';
+import { MusicChatPanel } from '@/components/editor/media-panel/music-chat-panel';
+import { SfxChatPanel } from '@/components/editor/media-panel/sfx-chat-panel';
+import { VoiceoverChatPanel } from '@/components/editor/media-panel/voiceover-chat-panel';
 import {
   useMediaPanelStore,
   type Tab,
@@ -80,7 +84,10 @@ export default function Editor() {
                 </ResizablePanel>
                 <ResizableHandle className="h-[1px] bg-white/5 hover:bg-white/10 transition-colors" />
                 <ResizablePanel defaultSize={25} minSize={20}>
-                  <ChatPanel />
+                  {activeTab === 'visuals' && <VisualsChatPanel />}
+                  {activeTab === 'music' && <MusicChatPanel />}
+                  {activeTab === 'sfx' && <SfxChatPanel />}
+                  {activeTab === 'voiceovers' && <VoiceoverChatPanel />}
                 </ResizablePanel>
               </ResizablePanelGroup>
             ) : (

@@ -10,22 +10,42 @@ export class ImageClip extends BaseTimelineClip {
     return { controls: createResizeControls() };
   }
 
+    static ownDefaults = {
+    rx:  10,
+    ry: 10,
+    objectCaching: false,
+    borderColor: 'transparent',
+    stroke: 'transparent',
+    strokeWidth: 0,
+    fill: '#164e63',
+    borderOpacityWhenMoving: 1,
+    hoverCursor: 'default',
+  };
+
   constructor(options: BaseClipProps) {
     super(options);
+    Object.assign(this, ImageClip.ownDefaults);
     this.set({
-      fill: options.fill || TRACK_COLORS.image.solid,
+      // fill: options.fill || TRACK_COLORS.image.solid,
     });
   }
+
+
+  public _render(ctx: CanvasRenderingContext2D) {
+    super._render(ctx);
+    this.updateSelected(ctx);
+  }
+
   public setSelected(selected: boolean) {
     this.isSelected = selected;
     this.set({ dirty: true });
   }
   public updateSelected(ctx: CanvasRenderingContext2D) {
     const borderColor = this.isSelected
-      ? 'rgba(255, 255, 255,1.0)'
-      : 'rgba(255, 255, 255,0.05)';
-    const borderWidth = 1;
-    const radius = 6;
+      ? '#0891b2'
+      : '#155e75';
+    const borderWidth = 2;
+    const radius = 10;
 
     ctx.save();
     ctx.fillStyle = borderColor;

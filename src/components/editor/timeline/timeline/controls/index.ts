@@ -18,7 +18,7 @@ export const createResizeControls = () => ({
     cursorStyleHandler: scaleSkewCursorStyleHandler,
     actionName: 'resizing',
     render: drawVerticalLine,
-    offsetX: -6,
+    offsetX: -8,
   }),
   ml: new Control({
     x: -0.5,
@@ -27,7 +27,7 @@ export const createResizeControls = () => ({
     cursorStyleHandler: scaleSkewCursorStyleHandler,
     actionName: 'resizing',
     render: drawVerticalLine,
-    offsetX: 6,
+    offsetX: 8,
   }),
 });
 
@@ -58,7 +58,7 @@ export const createTrimControls = () => ({
     actionHandler: changeTrim,
     cursorStyleHandler: scaleSkewCursorStyleHandler,
     actionName: 'resizing',
-    offsetX: -6,
+    offsetX: -8,
   }),
   ml: new Control({
     x: -0.5,
@@ -67,7 +67,7 @@ export const createTrimControls = () => ({
     actionHandler: changeTrim,
     cursorStyleHandler: scaleSkewCursorStyleHandler,
     actionName: 'resizing',
-    offsetX: 6,
+    offsetX: 8,
   }),
 });
 

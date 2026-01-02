@@ -10,13 +10,13 @@ export class EffectClip extends BaseTimelineClip {
   }
 
   static ownDefaults = {
-    rx: 4,
-    ry: 4,
+    rx: 10,
+    ry: 10,
     objectCaching: false,
     borderColor: 'transparent',
     stroke: 'transparent',
     strokeWidth: 0,
-    fill: '#27272a',
+    fill: '#881337',
     borderOpacityWhenMoving: 1,
     hoverCursor: 'default',
   };
@@ -24,7 +24,7 @@ export class EffectClip extends BaseTimelineClip {
     super(options);
     Object.assign(this, EffectClip.ownDefaults);
     this.set({
-      fill: options.fill || TRACK_COLORS.effect.solid,
+      // fill: options.fill || TRACK_COLORS.effect.solid,
     });
   }
 
@@ -38,10 +38,10 @@ export class EffectClip extends BaseTimelineClip {
   }
   public updateSelected(ctx: CanvasRenderingContext2D) {
     const borderColor = this.isSelected
-      ? 'rgba(255, 255, 255,1.0)'
-      : 'rgba(255, 255, 255,0.05)';
+      ? '#be123c'
+      : '#9f1239';
     const borderWidth = 2;
-    const radius = 4;
+    const radius = 10;
 
     ctx.save();
     ctx.fillStyle = borderColor;

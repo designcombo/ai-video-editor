@@ -38,7 +38,7 @@ export const TRACK_HEIGHTS: Record<string, number> = {
   image: 40,
   text: 32,
   effect: 32,
-  audio: 40,
+  audio: 32,
   transition: 40,
 } as const;
 

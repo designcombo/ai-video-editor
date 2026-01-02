@@ -9,18 +9,39 @@ export class AudioClip extends BaseTimelineClip {
     return { controls: createTrimControls() };
   }
 
+    static ownDefaults = {
+    rx:  10,
+    ry: 10,
+    objectCaching: false,
+    borderColor: 'transparent',
+    stroke: 'transparent',
+    strokeWidth: 0,
+    fill: '#1e3a8a',
+    borderOpacityWhenMoving: 1,
+    hoverCursor: 'default',
+  };
+
+
   constructor(options: BaseClipProps) {
     super(options);
+    Object.assign(this, AudioClip.ownDefaults);
     this.set({
-      fill: options.fill || TRACK_COLORS.audio.solid,
+      // fill: options.fill || TRACK_COLORS.audio.solid,
+      fill: "#1e3a8a"
     });
+  }
+
+    public _render(ctx: CanvasRenderingContext2D) {
+    super._render(ctx);
+    // this.drawTextIdentity(ctx);
+    this.updateSelected(ctx);
   }
   public updateSelected(ctx: CanvasRenderingContext2D) {
     const borderColor = this.isSelected
-      ? 'rgba(255, 255, 255,1.0)'
-      : 'rgba(255, 255, 255,0.05)';
-    const borderWidth = 1;
-    const radius = 6;
+      ? '#3b82f6'
+      : '#1d4ed8';
+    const borderWidth = 2;
+    const radius = 10;
 
     ctx.save();
     ctx.fillStyle = borderColor;

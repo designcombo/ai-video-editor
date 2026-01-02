@@ -1,16 +1,53 @@
 'use client';
 
 import { IconMicrophone } from '@tabler/icons-react';
+import { useGeneratedStore } from '@/stores/generated-store';
+import { useStudioStore } from '@/stores/studio-store';
+import { AudioClip, Log } from '@designcombo/video';
+import { AudioItem } from './audio-item';
+import { useState } from 'react';
 
 export default function PanelVoiceovers() {
+  const { studio } = useStudioStore();
+  const { voiceovers } = useGeneratedStore();
+  const [playingId, setPlayingId] = useState<string | null>(null);
+
+  const handleAddAudio = async (url: string) => {
+    if (!studio) return;
+    try {
+      const audioClip = await AudioClip.fromUrl(url);
+      await studio.addClip(audioClip, url);
+    } catch (error) {
+      Log.error('Failed to add audio:', error);
+    }
+  };
+
+  if (voiceovers.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full p-4 gap-4">
+        <IconMicrophone className="size-7 text-muted-foreground" stroke={1.5} />
+        <div className="flex flex-col gap-2 text-center">
+          <p className=" font-semibold text-white">No Voiceover Assets</p>
+          <p className="text-sm text-muted-foreground max-w-xs">
+            Start building your collection by clicking the generate button in the chat panel.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center h-full p-4 gap-4">
-      <IconMicrophone className="size-7 text-muted-foreground" stroke={1.5} />
-      <div className="flex flex-col gap-2 text-center">
-        <p className=" font-semibold text-white">No Voiceover Assets</p>
-        <p className="text-sm text-muted-foreground max-w-xs">
-          Start building your collection by clicking the generate button below
-        </p>
+    <div className="flex flex-col gap-4 p-4 h-full overflow-y-auto">
+      <div className="grid grid-cols-2 gap-2">
+        {voiceovers.map((item) => (
+          <AudioItem
+            key={item.id}
+            item={item}
+            onAdd={handleAddAudio}
+            playingId={playingId}
+            setPlayingId={setPlayingId}
+          />
+        ))}
       </div>
     </div>
   );

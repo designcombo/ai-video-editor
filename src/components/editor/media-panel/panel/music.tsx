@@ -1,31 +1,50 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { useStudioStore } from '@/stores/studio-store';
 import { AudioClip, Log } from '@designcombo/video';
+import { useGeneratedStore } from '@/stores/generated-store';
+import { IconMusic } from '@tabler/icons-react';
+import { AudioItem } from './audio-item';
+import { useState } from 'react';
 
 export default function PanelMusic() {
   const { studio } = useStudioStore();
+  const { music } = useGeneratedStore();
+  const [playingId, setPlayingId] = useState<string | null>(null);
 
-  const handleAddAudio = async () => {
+  const handleAddAudio = async (url: string) => {
     if (!studio) return;
 
     try {
-      const audioUrl = 'https://cdn.designcombo.dev/preset76.mp3';
-      const audioClip = await AudioClip.fromUrl(audioUrl);
-
-      await studio.addClip(audioClip, audioUrl);
+      const audioClip = await AudioClip.fromUrl(url);
+      await studio.addClip(audioClip, url);
     } catch (error) {
       Log.error('Failed to add audio:', error);
     }
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 h-full">
-      <div className="font-bold text-lg mb-2">Music</div>
-      <div className="flex flex-col gap-2">
-        <Button onClick={handleAddAudio}>Add Audio</Button>
-      </div>
+    <div className="flex flex-col gap-4 p-4 h-full overflow-y-auto">
+      {music.length === 0 ? (
+        <div className="flex flex-col items-center justify-center h-[200px] gap-4">
+            <IconMusic className="size-7 text-muted-foreground" stroke={1.5} />
+          <div className="text-center text-muted-foreground text-sm">
+            No music generated yet. Use the chat panel to generate some!
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-2">
+            {music.map((item) => (
+                <AudioItem
+                    key={item.id}
+                    item={item}
+                    onAdd={handleAddAudio}
+                    playingId={playingId}
+                    setPlayingId={setPlayingId}
+                />
+            ))}
+        </div>
+      )}
     </div>
   );
 }

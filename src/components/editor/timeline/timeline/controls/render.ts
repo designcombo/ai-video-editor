@@ -19,7 +19,7 @@ export function drawVerticalLine(
   ctx.translate(left + xOffset, top);
 
   ctx.lineWidth = 2;
-  ctx.strokeStyle = 'rgba(255,255,255,0.75)';
+  ctx.strokeStyle = 'rgba(255,255,255,0.85)';
   ctx.lineCap = 'round';
 
   // Draw a vertical line handle (e.g. 16px height)
