@@ -65,7 +65,7 @@ export default function PanelCaptions() {
               appeared: '#ffffff',
               active: '#ffffff',
               activeFill: '#FF5700',
-              background: '',
+              background: 'transparent',
               keyword: '#ffffff',
             },
             preserveKeywordColor: true,

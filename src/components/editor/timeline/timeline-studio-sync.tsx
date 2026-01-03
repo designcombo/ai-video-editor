@@ -435,7 +435,11 @@ export const TimelineStudioSync = ({
 
       // 2. Update Studio
       if (!studio) return;
-      await studio.deleteSelected();
+      
+      // Use explicit ID removal instead of deleteSelected to avoid race conditions with selection state
+      for (const id of clipIds) {
+        await studio.removeClipById(id);
+      }
     };
 
     const handleSelectionDuplicated = async () => {
